@@ -22,7 +22,22 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'https://todo-twillio.netlify.app/', credentials: true }));
+const allowedOrigins = [
+  'https://todo-twillio.netlify.app',
+  'https://todo-list-xeh9.onrender.com',
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(cookieParser());
 
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
