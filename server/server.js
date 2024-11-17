@@ -22,7 +22,7 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'https://todo-twillio.netlify.app/', credentials: true }));
 app.use(cookieParser());
 
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
