@@ -31,7 +31,8 @@ export const Login = async (req, res, next) => {
         const token = jwt.sign({ id: isUser._id }, process.env.JWT);
         if (isUser) {
             const { password, ...userRes } = isUser._doc;
-            return res.status(201).cookie('token', { token }, { httpOnly: true }).json({ user: userRes });
+            return res.status(201).cookie('token', { token }, { httpOnly: true, secure: true, sameSite: 'None' }).json({ user: userRes });
+
         }
     } catch (err) {
         next(err);
